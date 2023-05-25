@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "3cc39e9c-073d-4600-98c6-2086f2d5fd66",
+  "id": "14984ef9-8cd7-42fb-af53-f295252f52bf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "comment": {
@@ -48,7 +48,8 @@
           "type": "timestamp(2)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
@@ -129,7 +130,8 @@
           "type": "timestamp(2)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
@@ -192,7 +194,8 @@
           "type": "timestamp(2)",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
