@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "drizzle-kit generate:pg --out migrations-folder --schema db/schema.ts"
   },
   "dependencies": {
+    "@planetscale/database": "^1.7.0",
     "@prisma/client": "^4.14.1",
     "@types/bcrypt": "^5.0.0",
     "@types/node": "20.2.3",
@@ -21,6 +23,7 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "jose": "^4.14.4",
+    "kysely": "^0.24.2",
     "mysql": "^2.18.1",
     "next": "13.4.3",
     "postcss": "8.4.23",
