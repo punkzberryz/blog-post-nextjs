@@ -8,8 +8,8 @@ import { cookies } from "next/headers";
 import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { drizzle } from "drizzle-orm/planetscale-serverless";
 import { eq } from "drizzle-orm";
-import { users } from "@/db/schema";
-import { db } from "@/db/db";
+
+import { db, users } from "@/db";
 
 export async function POST(req: NextRequest) {
   const { email, password }: { email: string; password: string } =
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   response.cookies.set({
     name: "jwt",
     value: token,
-    httpOnly: true,
+    httpOnly: false,
     maxAge: 60 * 60 * 24,
   });
 

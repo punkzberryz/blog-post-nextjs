@@ -6,9 +6,8 @@ import {
   timestamp,
   int,
   uniqueIndex,
-  datetime,
 } from "drizzle-orm/mysql-core";
-
+import { InferModel } from "drizzle-orm";
 export const users = sqlTable(
   "User",
   {
@@ -61,3 +60,5 @@ export const comments = sqlTable(
     };
   }
 );
+
+export type User = InferModel<typeof users, "select">;

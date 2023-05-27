@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createToken, signupValidationSchema } from "../services";
-import { db } from "@/db/db";
-import { users } from "@/db/schema";
+
+import { users, db } from "@/db";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 
