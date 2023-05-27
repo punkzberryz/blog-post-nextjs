@@ -13,7 +13,13 @@ export default function Navbar() {
         <Link href="/">blog-post-nextJS</Link>
       </h1>
       <div>
-        {data ? (
+        <Link
+          className="m-2 p-2 border rounded bg-purple-600 text-center text-white"
+          href="/post/new"
+        >
+          new post
+        </Link>
+        {loading ? null : data ? (
           <>
             <button
               className="m-2 p-2 border rounded bg-purple-600 text-center text-white"

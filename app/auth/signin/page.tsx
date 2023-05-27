@@ -24,14 +24,15 @@ export default function SignInPage() {
   };
   useEffect(() => {
     if (data) {
-      router.push("/");
+      setTimeout(() => router.push("/"), 1000);
+      // router.push("/");
     }
     if (password && email) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [password, email]);
+  }, [password, email, data]);
 
   return (
     <>

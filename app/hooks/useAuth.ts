@@ -46,6 +46,7 @@ const userAuth = () => {
           password,
         }
       );
+
       setAuthState({ data: response.data, error: null, loading: false });
     } catch (error: any) {
       setAuthState({ data: null, error: error.response.data, loading: false });

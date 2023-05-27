@@ -24,14 +24,14 @@ export default function SignUpPage() {
 
   useEffect(() => {
     if (data) {
-      router.push("/");
+      setTimeout(() => router.push("/"), 1000);
     }
     if (username && password && email) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [username, password, email]);
+  }, [username, password, email, data]);
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function SignUpPage() {
         />
         <input
           className="m-2 bg-sky-200 p-2 "
-          type="text"
+          type="password"
           name="password"
           id="password"
           placeholder="password"

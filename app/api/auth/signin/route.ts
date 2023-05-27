@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
   const token = await createToken({ email });
 
-  const response = NextResponse.json({ token, user });
+  const response = NextResponse.json({ user });
   response.cookies.set({
     name: "jwt",
     value: token,
