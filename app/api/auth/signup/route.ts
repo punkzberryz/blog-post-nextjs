@@ -41,8 +41,6 @@ export async function POST(req: NextRequest) {
     email,
   });
 
-  const token = await createToken({ email });
-
   const usersQuery = await db
     .select()
     .from(users)
@@ -53,6 +51,7 @@ export async function POST(req: NextRequest) {
     });
   }
   const user = usersQuery[0];
+  const token = await createToken({ email, id: user.id });
 
   const response = NextResponse.json({ user });
   response.cookies.set({

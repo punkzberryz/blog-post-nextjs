@@ -8,15 +8,15 @@ export async function GET(req: NextRequest) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
-  const payload = jwt.decode(token) as { email: string };
-  if (!payload) {
+  const payload = jwt.decode(token) as { email: string; id: number };
+  if (!payload.email) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
   const usersQuery = await db
     .select()
     .from(users)
-    .where(eq(users.email, payload.email));
+    .where(eq(users.id, payload.id));
 
   if (!usersQuery.length) {
     return new NextResponse("User not found", { status: 401 });

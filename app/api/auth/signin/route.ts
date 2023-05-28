@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     return new NextResponse("Email or password is invalid", { status: 401 });
   }
 
-  const token = await createToken({ email });
+  const token = await createToken({ email, id: user.id });
 
   const response = NextResponse.json({ user });
   response.cookies.set({
