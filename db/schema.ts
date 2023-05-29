@@ -6,6 +6,7 @@ import {
   timestamp,
   int,
   uniqueIndex,
+  index,
 } from "drizzle-orm/mysql-core";
 import { InferModel } from "drizzle-orm";
 export const users = sqlTable(
@@ -38,7 +39,7 @@ export const posts = sqlTable(
   },
   (table) => {
     return {
-      authorIndex: uniqueIndex("author_index").on(table.authorId),
+      authorIndex: index("author_index").on(table.authorId),
     };
   }
 );
@@ -55,8 +56,8 @@ export const comments = sqlTable(
   },
   (table) => {
     return {
-      authorIndex: uniqueIndex("author_index").on(table.authorId),
-      postIndex: uniqueIndex("post_index").on(table.postId),
+      authorIndex: index("author_index").on(table.authorId),
+      postIndex: index("post_index").on(table.postId),
     };
   }
 );

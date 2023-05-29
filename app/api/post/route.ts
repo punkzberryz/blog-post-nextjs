@@ -4,21 +4,13 @@ import { db, posts } from "@/db";
 import { eq } from "drizzle-orm";
 
 export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-  const id = searchParams.get("id");
-  if (!id) {
-    return new NextResponse("No post id found...", { status: 400 });
+  //GET MANY POSTS
+  const postQuery = await db.select().from(posts).limit(30);
+  if (!postQuery.length) {
+    return new NextResponse("Post not found...", { status: 400 });
   }
 
-  const postQuery = await db
-    .select()
-    .from(posts)
-    .where(eq(posts.id, parseInt(id)));
-  if (!postQuery.length) {
-    return new NextResponse("Post by Id not found...", { status: 400 });
-  }
-  const post = postQuery[0];
-  const response = NextResponse.json({ post });
+  const response = NextResponse.json(postQuery);
 
   return response;
 }
