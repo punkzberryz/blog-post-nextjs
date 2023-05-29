@@ -3,10 +3,6 @@ import { NextResponse, NextRequest } from "next/server";
 import { signinValidationSchema, createToken } from "../services";
 
 import bcrypt from "bcrypt";
-import * as jose from "jose";
-import { cookies } from "next/headers";
-import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
 import { eq } from "drizzle-orm";
 
 import { db, users } from "@/db";
@@ -14,6 +10,7 @@ import { db, users } from "@/db";
 export async function POST(req: NextRequest) {
   const { email, password }: { email: string; password: string } =
     await req.json();
+
   if (!email || !password) {
     return new NextResponse("Invalid inputs", { status: 400 });
   }

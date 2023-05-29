@@ -62,3 +62,5 @@ export const comments = sqlTable(
 );
 
 export type User = InferModel<typeof users, "select">;
+export type Post = InferModel<typeof posts>;
+export type Comment = InferModel<typeof comments>;
