@@ -3,30 +3,26 @@ import Link from "next/link";
 import userAuth from "../hooks/useAuth";
 import { useContext } from "react";
 import { AuthenticationContext } from "../context/AuthContext";
+import Button from "./Button";
 
 export default function Navbar() {
   const { data, error, loading } = useContext(AuthenticationContext);
   const { signOut } = userAuth();
   return (
-    <>
-      <h1 className="text-4xl capitalize">
+    <div className="pb-5">
+      <h1 className="text-4xl capitalize m-2 p-2">
         <Link href="/">blog-post-nextJS</Link>
       </h1>
       <div>
-        <Link
-          className="m-2 p-2 border rounded bg-purple-600 text-center text-white"
-          href="/post/new"
-        >
-          new post
-        </Link>
         {loading ? null : data ? (
           <>
-            <button
+            <Link
               className="m-2 p-2 border rounded bg-purple-600 text-center text-white"
-              onClick={signOut}
+              href="/post/new"
             >
-              Sign out
-            </button>
+              new post
+            </Link>
+            <Button onClick={signOut}>Sign out</Button>
           </>
         ) : (
           <>
@@ -45,6 +41,6 @@ export default function Navbar() {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }

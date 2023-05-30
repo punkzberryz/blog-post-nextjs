@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import WYSIWYG from "../components/WYSIWYG";
+import Button from "@/app/components/Button";
 
 export default function NewPostPage() {
   const [title, setTitle] = useState("");
@@ -26,13 +27,8 @@ export default function NewPostPage() {
       </div>
       <div>{body}</div>
       <div>
-        <button className="m-2 p-2 border rounded">Preview</button>
-        <button
-          className="m-2 p-2 border rounded"
-          onClick={handleSumbitOnClick}
-        >
-          Submit
-        </button>
+        <Button onClick={() => {}}>Preview</Button>
+        <Button onClick={handleSumbitOnClick}>Submit</Button>
       </div>
     </>
   );

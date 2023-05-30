@@ -5,14 +5,17 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   if (req.method == "GET" && req.nextUrl.pathname == "/api/post") {
     return;
   }
-  const token = req.headers.get("authorization") as string;
-  if (!token) {
+
+  const bearerToken = req.headers.get("Authorization");
+  if (!bearerToken) {
     console.log("error at middleware: token not found");
     return new NextResponse("Unauthorized request", { status: 401 });
   }
+
+  const token = getToken(bearerToken);
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   try {
-    const x = await jose.jwtVerify(token, secret);
+    await jose.jwtVerify(token, secret);
   } catch (error) {
     console.log("error at middleware: token not correct or is expired");
     return new NextResponse("Unauthorized request", { status: 401 });
@@ -20,4 +23,10 @@ export async function middleware(req: NextRequest, res: NextResponse) {
 }
 export const config = {
   matcher: ["/api/auth/current-user", "/api/post", "/api/post/:id/comment"],
+};
+
+const getToken = (tokenInput: string) => {
+  const bearerToken = tokenInput.split(" ");
+  if (!bearerToken[1]) return tokenInput;
+  return bearerToken[1];
 };

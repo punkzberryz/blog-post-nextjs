@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { db, posts, comments, Post } from "@/db";
 import { eq } from "drizzle-orm";
-
+import { revalidateTag } from "next/cache";
 // export async function GET(
 //   req: NextRequest,
 //   { params }: { params: { id: string } }
@@ -12,6 +12,7 @@ export async function POST(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const tag = req.nextUrl.searchParams.get("tag");
   const postId = parseInt(params.id);
   const { comment }: { comment: string } = await req.json();
   if (!postId) {
@@ -41,12 +42,18 @@ export async function POST(
     return new NextResponse("Post by Id not found", { status: 401 });
   }
 
-  await db.insert(comments).values({
-    comment,
-    postId,
-    authorId: id,
-  });
+  // await db.insert(comments).values({
+  //   comment,
+  //   postId,
+  //   authorId: id,
+  // });
+  console.log(tag);
+  revalidateTag(`${id}`);
 
-  const response = NextResponse.json("Post comment success!!");
+  const response = NextResponse.json({
+    message: "Post comment success!!",
+    revalidated: true,
+    now: Date.now(),
+  });
   return response;
 }
