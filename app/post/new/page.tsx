@@ -2,13 +2,22 @@
 import { useState } from "react";
 import WYSIWYG from "../components/WYSIWYG";
 import Button from "@/app/components/Button";
+import usePost from "@/app/hooks/usePost";
+import { getCookie } from "cookies-next";
 
 export default function NewPostPage() {
+  const token = getCookie("jwt")?.toString();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const { postCreate } = usePost();
 
-  const handleSumbitOnClick = () => {
-    console.log({ title, body });
+  const handleSumbitOnClick = async () => {
+    if (!token) {
+      throw Error("Unauthorized");
+    }
+    await postCreate({ title, body, token });
+    setBody("");
+    setTitle("");
   };
 
   return (

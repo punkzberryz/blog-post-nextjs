@@ -20,7 +20,9 @@ export default function CommentInput({
   const handleAddCommentOnClick = async () => {
     setLoading(true);
     await postComment({ comment: body, postId, token });
+    setBody("<p><br></p>");
     setLoading(false);
+
     router.push(`/post/${postId}`);
   };
 

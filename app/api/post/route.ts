@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { db, posts } from "@/db";
+import { db, posts, users } from "@/db";
 import { eq } from "drizzle-orm";
 
 export async function GET(req: NextRequest) {
   //GET MANY POSTS
-  const postQuery = await db.select().from(posts).limit(30);
+  const postQuery = await db
+    .select()
+    .from(posts)
+    .innerJoin(users, eq(users.id, posts.authorId))
+    .limit(30);
   if (!postQuery.length) {
     return new NextResponse("Post not found...", { status: 400 });
   }
@@ -39,6 +43,8 @@ export async function POST(req: NextRequest) {
     authorId: id,
   });
 
-  const response = NextResponse.json({ message: "Post success!!" });
+  const response = NextResponse.json({
+    message: "Post success!!",
+  });
   return response;
 }

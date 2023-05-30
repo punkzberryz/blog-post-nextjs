@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { db, posts, comments, Post } from "@/db";
 import { eq } from "drizzle-orm";
-import { revalidateTag } from "next/cache";
+
 // export async function GET(
 //   req: NextRequest,
 //   { params }: { params: { id: string } }
@@ -42,13 +42,11 @@ export async function POST(
     return new NextResponse("Post by Id not found", { status: 401 });
   }
 
-  // await db.insert(comments).values({
-  //   comment,
-  //   postId,
-  //   authorId: id,
-  // });
-  console.log(tag);
-  revalidateTag(`${id}`);
+  await db.insert(comments).values({
+    comment,
+    postId,
+    authorId: id,
+  });
 
   const response = NextResponse.json({
     message: "Post comment success!!",

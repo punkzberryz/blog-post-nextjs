@@ -38,7 +38,7 @@ interface PostProps {
 
 const fetchPost = async (id: number) => {
   const response = await fetch(`http://localhost:3000/api/post/${id}`, {
-    next: { revalidate: 60, tags: ["collection"] },
+    cache: "no-store",
   });
   const post: PostProps = await response.json();
   return post;
