@@ -1,13 +1,13 @@
 "use client";
 
 import { AuthenticationContext } from "@/app/context/AuthContext";
-import userAuth from "@/app/hooks/useAuth";
+import useAuth from "@/app/hooks/useAuth";
 import { useContext, useEffect, useState } from "react";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
-  const { signIn } = userAuth();
+  const { signIn } = useAuth();
   const { data, error, loading } = useContext(AuthenticationContext);
 
   const [email, setEmail] = useState("");

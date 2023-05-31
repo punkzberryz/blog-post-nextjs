@@ -1,9 +1,14 @@
 import * as jose from "jose";
 import { NextRequest, NextResponse } from "next/server";
-
+import { getToken } from "./app/util";
 export async function middleware(req: NextRequest, res: NextResponse) {
-  if (req.method == "GET" && req.nextUrl.pathname == "/api/post") {
-    return;
+  if (req.method == "GET") {
+    if (req.nextUrl.pathname == "/api/post") {
+      return;
+    }
+    if (req.nextUrl.pathname.startsWith("/api/post/")) {
+      return;
+    }
   }
 
   const bearerToken = req.headers.get("Authorization");
@@ -22,11 +27,10 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   }
 }
 export const config = {
-  matcher: ["/api/auth/current-user", "/api/post", "/api/post/:id/comment"],
-};
-
-const getToken = (tokenInput: string) => {
-  const bearerToken = tokenInput.split(" ");
-  if (!bearerToken[1]) return tokenInput;
-  return bearerToken[1];
+  matcher: [
+    "/api/auth/current-user",
+    "/api/post",
+    "/api/post/:id*",
+    "/api/post/:id/comment",
+  ],
 };

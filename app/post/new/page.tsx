@@ -1,23 +1,29 @@
 "use client";
 import { useState } from "react";
-import WYSIWYG from "../components/WYSIWYG";
+import WYSIWYG from "../_components/WYSIWYG";
 import Button from "@/app/components/Button";
 import usePost from "@/app/hooks/usePost";
 import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 export default function NewPostPage() {
+  const router = useRouter();
   const token = getCookie("jwt")?.toString();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const { postCreate } = usePost();
+  const { createPost } = usePost();
 
   const handleSumbitOnClick = async () => {
     if (!token) {
       throw Error("Unauthorized");
     }
-    await postCreate({ title, body, token });
+    const postId = await createPost({ title, body, token });
+    if (!postId) {
+      throw Error("Post fail... try again");
+    }
     setBody("");
     setTitle("");
+    router.push(`/post/${postId}`);
   };
 
   return (

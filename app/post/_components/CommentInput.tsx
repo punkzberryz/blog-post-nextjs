@@ -23,7 +23,7 @@ export default function CommentInput({
     setBody("<p><br></p>");
     setLoading(false);
 
-    router.push(`/post/${postId}`);
+    router.refresh();
   };
 
   useEffect(() => {

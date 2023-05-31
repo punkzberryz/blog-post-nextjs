@@ -3,7 +3,7 @@ import { removeCookies } from "cookies-next";
 import { useContext } from "react";
 import { AuthenticationContext } from "../context/AuthContext";
 
-const userAuth = () => {
+const useAuth = () => {
   const { data, error, loading, setAuthState } = useContext(
     AuthenticationContext
   );
@@ -64,4 +64,4 @@ const userAuth = () => {
 
   return { signIn, signUp, signOut };
 };
-export default userAuth;
+export default useAuth;

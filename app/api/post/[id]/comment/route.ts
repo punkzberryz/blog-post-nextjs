@@ -12,7 +12,6 @@ export async function POST(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const tag = req.nextUrl.searchParams.get("tag");
   const postId = parseInt(params.id);
   const { comment }: { comment: string } = await req.json();
   if (!postId) {

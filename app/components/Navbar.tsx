@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import userAuth from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { useContext } from "react";
 import { AuthenticationContext } from "../context/AuthContext";
 import Button from "./Button";
 
 export default function Navbar() {
   const { data, error, loading } = useContext(AuthenticationContext);
-  const { signOut } = userAuth();
+  const { signOut } = useAuth();
   return (
     <div className="pb-5">
       <h1 className="text-4xl capitalize m-2 p-2">
