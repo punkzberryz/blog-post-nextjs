@@ -9,7 +9,7 @@ const usePost = () => {
     token: string;
   }) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/post`, {
+      const response = await fetch(`${process.env.SERVER_HOST}/api/post`, {
         method: "POST",
         headers: { Authorization: token },
         body: JSON.stringify({ title, body }),
@@ -27,7 +27,7 @@ const usePost = () => {
   };
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3000/api/post", {
+    const response = await fetch(`${process.env.SERVER_HOST}/api/post`, {
       next: { revalidate: 60 },
       // cache: "no-store",
     });
@@ -55,7 +55,7 @@ const usePost = () => {
   }) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/post/${postId}/`,
+        `${process.env.SERVER_HOST}/api/post/${postId}/`,
         {
           method: "DELETE",
           headers: { Authorization: token },

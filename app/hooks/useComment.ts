@@ -14,7 +14,7 @@ const useComment = () => {
   }) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/post/${postId}/comment`,
+        `${process.env.SERVER_HOST}/api/post/${postId}/comment`,
         {
           method: "POST",
           headers: { Authorization: token },

@@ -50,7 +50,7 @@ export default function AuthContext({
       }
 
       const response = await axios.get(
-        "http://localhost:3000/api/auth/current-user",
+        `${process.env.SERVER_HOST}/api/auth/current-user`,
         {
           headers: {
             Authorization: jwt,
