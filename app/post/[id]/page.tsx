@@ -57,9 +57,12 @@ interface PostProps {
 }
 
 const fetchPost = async (id: number) => {
-  const response = await fetch(`${process.env.SERVER_HOST}/api/post/${id}`, {
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/post/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
   const post: PostProps = await response.json();
   return post;
 };

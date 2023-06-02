@@ -9,11 +9,14 @@ const usePost = () => {
     token: string;
   }) => {
     try {
-      const response = await fetch(`${process.env.SERVER_HOST}/api/post`, {
-        method: "POST",
-        headers: { Authorization: token },
-        body: JSON.stringify({ title, body }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/post`,
+        {
+          method: "POST",
+          headers: { Authorization: token },
+          body: JSON.stringify({ title, body }),
+        }
+      );
       const { message, id }: { message: string; id: number } =
         await response.json();
       if (!id) {
@@ -27,23 +30,41 @@ const usePost = () => {
   };
 
   const getPosts = async () => {
-    const response = await fetch(`${process.env.SERVER_HOST}/api/post`, {
-      next: { revalidate: 60 },
-      // cache: "no-store",
-    });
-    const result = (await response.json()) as {
-      id: number;
-      createdAt: Date;
-      updatedAt: Date;
-      title: string;
-      body: string;
-      imageUrl: string | null;
-      authorId: number;
-      authorUsername: string;
-      authorEmail: string;
-    }[];
-
-    return result;
+    console.log(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/post`);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/post`,
+        {
+          next: { revalidate: 60 },
+          // cache: "no-store",
+        }
+      );
+      const result = (await response.json()) as {
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        title: string;
+        body: string;
+        imageUrl: string | null;
+        authorId: number;
+        authorUsername: string;
+        authorEmail: string;
+      }[];
+      return result;
+    } catch (e) {
+      console.log(e);
+      return [] as {
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        title: string;
+        body: string;
+        imageUrl: string | null;
+        authorId: number;
+        authorUsername: string;
+        authorEmail: string;
+      }[];
+    }
   };
 
   const deletePost = async ({
@@ -55,7 +76,7 @@ const usePost = () => {
   }) => {
     try {
       const response = await fetch(
-        `${process.env.SERVER_HOST}/api/post/${postId}/`,
+        `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/post/${postId}/`,
         {
           method: "DELETE",
           headers: { Authorization: token },
