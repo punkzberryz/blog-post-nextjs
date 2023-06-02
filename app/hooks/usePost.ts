@@ -35,7 +35,7 @@ const usePost = () => {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/post`,
         {
-          next: { revalidate: 60 },
+          // next: { revalidate: 60 },
           // cache: "no-store",
         }
       );
